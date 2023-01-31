@@ -35,12 +35,12 @@ public class ContentRegister {
     netServer.admins.chatFilters.insert(1, (p, m) -> {
       TempData data = TempData.get(p);
 
-      if (PVars.chat && data.isMuted) util.Players.err(p, "You're muted, you can't speak.");
-      else if (!PVars.chat && !p.admin) p.sendMessage("[scarlet]Chat disabled, only admins can't speak!");
+      if (PVars.chat && data.isMuted) util.Players.err(p, "Estás muteado, no puedes hablar.");
+      else if (!PVars.chat && !p.admin) p.sendMessage("[scarlet]Chat deshabilitado, solo Moderadores pueden hablar.");
       else {
         Log.info(Strings.format("&lk@&fb&ly@&fr<&fi&lc@&fr: &fb&lw@&fr>", data.rainbowed ? "RAINBOWED: " : data.spectate() ? "VANISHED: " : "", data.noColorTag, data.realName, m));
 
-        if (data.spectate()) Call.sendChatMessage("[coral][[]:[white] " + m);
+        if (data.spectate()) Call.sendChatMessage("[slate]Espectador [accent]»[slate] " + m);
         else if (nucleusPlugin != null) {
           final fr.xpdustry.nucleus.core.translation.Translator translator = ((fr.xpdustry.nucleus.mindustry.NucleusPlugin) nucleusPlugin).getTranslator();
           final String stripedMessage = Strings.stripColors(m);
@@ -65,7 +65,7 @@ public class ContentRegister {
                 + "[coral][[" + data.getName() + "[coral]]:[white] " + newMessage, newMessage, p);
             }
           });
-        } else Call.sendMessage((PVars.tags ? data.tag : "") + "[coral][[" + data.getName() + "[coral]]:[white] " + m, m, p);
+        } else Call.sendMessage((PVars.tags ? data.tag : "") + "[accent] • " + data.getName() + " »[white] " + m, m, p);
       }
 
       return null;
@@ -137,7 +137,7 @@ public class ContentRegister {
 
       // for me =)
       if (data.isCreator) {
-        if (PVars.niceWelcome) Call.sendMessage("[scarlet]\ue80f " + data.realName + "[scarlet] has connected! \ue80f [lightgray](Everyone must say: Hello creator! XD)");
+        if (PVars.niceWelcome) Call.sendMessage("[scarlet]\ue80f " + data.realName + "[scarlet] se ha conectado! \ue80f [lightgray](Todos digan: Hola zetamap :3)");
         Call.infoMessage(e.player.con, "Welcome creator! =)");
       }
 
@@ -166,7 +166,7 @@ public class ContentRegister {
     });
 
     Events.on(EventType.PlayerBanEvent.class, e -> 
-      ALog.write("Ban", "@ [@] has been banned of server", netServer.admins.getInfoOptional(e.uuid).lastName, e.uuid)
+      ALog.write("Ban", "@ [@] ha sido baneado del servidor", netServer.admins.getInfoOptional(e.uuid).lastName, e.uuid)
     );
 
     // save the unit of the player for the godmode
