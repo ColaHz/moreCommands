@@ -951,7 +951,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
 
     commands.add("rtv", "[mapName...]", "Rock the vote to change map", false, false, (arg, data) -> {
       if (!PVars.canVote) return;
-      else if (Groups.player.size() < 2 && !data.player.admin) {
+      else if (Groups.player.size() < 1 && !data.player.admin) {
         data.player.sendMessage("[scarlet]2 players are required or be an admin to start a vote.");
         return;
       } else if (data.votedRTV) {
