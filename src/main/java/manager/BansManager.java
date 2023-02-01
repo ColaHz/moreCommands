@@ -33,22 +33,22 @@ public class BansManager {
         Seq<PlayerInfo> bans = netServer.admins.getBanned();
         Seq<String> ipbans = netServer.admins.getBannedIPs();
 
-        if (bans.isEmpty()) Log.info("No ID-banned players have been found.");
+        if (bans.isEmpty()) Log.info("No se encontró jugador/es baneado por ID.");
         else {
-          Log.info("Banned players [ID]: Total: " + bans.size);
+          Log.info("Jugadores baneados [ID]: Total: " + bans.size);
           bans.each(info -> Log.info("| @ - Last name: '@' - Reason: @", info.id, info.lastName, PVars.bansReason.get(info.id, "<unknown>")));
         }
 
-        if (ipbans.isEmpty()) Log.info("No IP-banned players have been found.");
+        if (ipbans.isEmpty()) Log.info("No se encontró jugador/es baneado por IP");
         else {
-          Log.info("Banned players [IP]: Total: " + ipbans.size);
+          Log.info("Jugadores baneados [IP]: Total: " + ipbans.size);
           ipbans.each(ip -> {
             Seq<PlayerInfo> infos = netServer.admins.findByIPs(ip);
 
-            if (infos.isEmpty()) Log.info("| + '@' (No name or info)", ip);
+            if (infos.isEmpty()) Log.info("| + '@' (Sin información)", ip);
             else {
               Log.info("| + '@'", ip);
-              infos.each(info -> Log.info("| | Last name: '@' - ID: '@' - Reason: @", info.lastName, info.id, PVars.bansReason.get(info.id, "<unknown>")));
+              infos.each(info -> Log.info("| | Nombre: '@' - ID: '@' - Motivo: @", info.lastName, info.id, PVars.bansReason.get(info.id, "<No definido>")));
             }
           });
         }
@@ -58,15 +58,15 @@ public class BansManager {
         if (arg.length > 2) {
           if (arg[1].equals("id")) {
             netServer.admins.banPlayerID(arg[2]);
-            PVars.bansReason.put(arg[2], arg.length == 4 && !arg[3].isBlank() ? arg[3] : "<no_reason>");
-            Log.info("ID banned for the reason: @", PVars.bansReason.get(arg[2]));
-            ALog.write("Ban", "[Server] banned the id '@' for the reason: @", arg[2], PVars.bansReason.get(arg[2]));
+            PVars.bansReason.put(arg[2], arg.length == 4 && !arg[3].isBlank() ? arg[3] : "<no_definido>");
+            Log.info("La ID fue baneado por el motivo de: @", PVars.bansReason.get(arg[2]));
+            ALog.write("Ban", "[Serverban] Baneo la ID '@' por el motivo de: @", arg[2], PVars.bansReason.get(arg[2]));
 
           } else if (arg[1].equals("ip")) {
             netServer.admins.banPlayerIP(arg[2]);
             netServer.admins.findByIPs(arg[2]).each(info -> PVars.bansReason.put(info.id, arg.length == 4 && !arg[3].isBlank() ? arg[3] : "<no_reason>"));
-            Log.info("IP banned for the reason: @", PVars.bansReason.get(arg[2]));
-            ALog.write("Ban", "[Server] banned the ip '@' for the reason: @", arg[2], PVars.bansReason.get(arg[2]));
+            Log.info("La IP fue baneado por el motivo de: @", PVars.bansReason.get(arg[2]));
+            ALog.write("Ban", "[Serverban] Baneo la IP '@' por el motivo de: @", arg[2], PVars.bansReason.get(arg[2]));
 
           } else {
             Log.err("Invalid type.");
@@ -76,16 +76,16 @@ public class BansManager {
           saveSettings();
           TempData.each(d -> {
             if (netServer.admins.isIDBanned(d.player.uuid())) {
-              Call.sendMessage("\n[gold]--------------------\n[scarlet]/!\\ " + d.nameColor + d.realName
-                  + "[scarlet] has been banned of the server.\nReason: [white]" + PVars.bansReason.get(arg[2])
+              Call.sendMessage("\n[gold]--------------------\n[scarlet]/[yellow]El jugador[]\\ " + d.nameColor + d.realName
+                  + "[scarlet] fue azotado por el mazo del BAN.\nMotivo: [white]" + PVars.bansReason.get(arg[2])
                   + "\n[gold]--------------------\n");
-              ALog.write("Ban", "[Server] banned @ [@] for the reason: @", d.stripedName, d.player.uuid(), PVars.bansReason.get(arg[2]));
+              ALog.write("Ban", "[Server] Fue baneado @ [@] por el motivo de: @", d.stripedName, d.player.uuid(), PVars.bansReason.get(arg[2]));
               if (arg.length == 3 || arg[3].isBlank()) d.player.kick(KickReason.banned);
-              else d.player.kick("You are banned on this server!\n[scarlet]Reason: []" + PVars.bansReason.get(arg[2]));
+              else d.player.kick("Fuiste baneado del servidor, apela en nuestro discord.\n[scarlet]Motivo de ban: []" + PVars.bansReason.get(arg[2]));
             }
           });
 
-        } else Log.err("Please specify a type and value! Example: ban add id abcdefghijkAAAAA012345==");
+        } else Log.err("Especifica el tipo y el valor, ejemplo: ban add id abcdefghijkAAAAA012345==");
         break;
 
       case "remove":
