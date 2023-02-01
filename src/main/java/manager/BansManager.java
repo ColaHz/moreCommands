@@ -103,12 +103,12 @@ public class BansManager {
             ALog.write("Unban", "[Server] unbanned the ip @", arg[2]);
 
           } else {
-            Log.err("That IP/ID is not banned!");
+            Log.err("La IP/ID no está baneado");
             return;
           }
           saveSettings();
 
-        } else Log.err("Please specify a type and value! Example: ban remove ip 0.0.0.0");
+        } else Log.err("Especifica el tipo y el valor, ejemplo: ban remove ip 0.0.0.0");
         break;
 
       case "reset":
@@ -266,25 +266,25 @@ public class BansManager {
 
     if (name.startsWith(FilterType.prefix) ||
         name.startsWith("~"))
-      message = "[scarlet]Your nickname must not start by [orange]" + FilterType.prefix + "[scarlet] or [orange] ~";
-    else if (name.length() < 3) message = "[scarlet]Your nickname must be at least 3 characters long";
+      message = "[scarlet]Su apodo no debe comenzar por [orange]" + FilterType.prefix + "[scarlet] o [orange] ~";
+    else if (name.length() < 3) message = "[scarlet]Tu apodo debe tener al menos 3 caracteres";
     else if (bannedNames.contains(name) ||
         name.toLowerCase().equals("[server]") ||
         name.toLowerCase().equals("server"))
-      message = "[scarlet]This nickname is banned!";
+      message = "[scarlet]Este Nombre fue baneado.";
     else if (!player.admin &&
         netServer.admins.getAdmins().contains(p -> {
           String adminName = Strings.stripGlyphs(Strings.stripColors(p.lastName)).strip().toLowerCase();
           return adminName.contains(name.toLowerCase()) || name.toLowerCase().contains(adminName);
         }))
-      message = "[scarlet]Spoofing an admin name is prohibited! [lightgray](even if not entirely)";
+      message = "[scarlet]¡Está prohibido suplantar el nombre de un administrador! [lightgray](aunque no del todo)";
     else if (bannedClients.contains(name)) message = "Ingenuine copy of Mindustry.\n\nMindustry is free on: [royal]https://anuke.itch.io/mindustry[]\n";
-    else if (bannedIps.contains(player.con.address)) message = "[scarlet]Your IP is blacklisted. [lightgray](ip: " + player.ip() + ")";
+    else if (bannedIps.contains(player.con.address)) message = "[scarlet]Su IP está en la lista negra. [lightgray](ip: " + player.ip() + ")";
     else kicked = false;
 
     if (kicked) {
       player.kick(message);
-      util.ALog.write("Check", "Connection refused of @ [@] for reason: @", player.name, player.uuid(), message);
+      util.ALog.write("Check", "Conexión rechazada de @ [@] por el motivo: @", player.name, player.uuid(), message);
     }
 
     return kicked;
