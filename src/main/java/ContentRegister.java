@@ -40,7 +40,7 @@ public class ContentRegister {
       else {
         Log.info(Strings.format("&lk@&fb&ly@&fr<&fi&lc@&fr: &fb&lw@&fr>", data.rainbowed ? "RAINBOWED: " : data.spectate() ? "VANISHED: " : "", data.noColorTag, data.realName, m));
 
-        if (data.spectate()) Call.sendChatMessage("[coral][[]:[white] " + m);
+        if (data.spectate()) Call.sendChatMessage("[green][[]:[white] " + m);
         else if (nucleusPlugin != null) {
           final fr.xpdustry.nucleus.core.translation.Translator translator = ((fr.xpdustry.nucleus.mindustry.NucleusPlugin) nucleusPlugin).getTranslator();
           final String stripedMessage = Strings.stripColors(m);
@@ -62,10 +62,10 @@ public class ContentRegister {
 
             for (int i = 0; i < v.size; i++) {
               Call.sendMessage(v.items[i].player.con, (PVars.tags ? data.tag : "")
-                + "[coral][[" + data.getName() + "[coral]]:[white] " + newMessage, newMessage, p);
+                + "[accent] • " + data.getName() + " »[white] " + newMessage, newMessage, p);
             }
           });
-        } else Call.sendMessage((PVars.tags ? data.tag : "") + "[coral][[" + data.getName() + "[coral]]:[white] " + m, m, p);
+        } else Call.sendMessage((PVars.tags ? data.tag : "") + "[accent] • " + data.getName() + " »[white] " + m, m, p);
       }
 
       return null;
