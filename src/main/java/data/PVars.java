@@ -12,7 +12,7 @@ public class PVars {
   public static Task rtvSession = new Task() {
     @Override
     public void run() {
-      Call.sendMessage("[scarlet]Vote failed! []Not enough votes to change to the [accent] " + selectedMap.name() + "[white] map.");
+      Call.sendMessage("[scarlet]Votación fallida! []No hay suficiente votos para cambiar al mapa [accent] " + selectedMap.name() + "[white] ,intenta de nuevo.");
       selectedMap = null;
       cancel();
     }
@@ -44,8 +44,8 @@ public class PVars {
   public static Seq<String> adminCommands = new Seq<>(),
     recentMutes = new Seq<>();
   public static mindustry.maps.Map selectedMap;
-  public static Timekeeper rtvCooldown = new Timekeeper(3 * 60), 
-    vnwCooldown = new Timekeeper(3 * 60);
+  public static Timekeeper rtvCooldown = new Timekeeper(1 * 1), 
+    vnwCooldown = new Timekeeper(1 * 30);
   public static short waveVoted = 1;
   public static boolean chat = true,
     autoPause = false, 
