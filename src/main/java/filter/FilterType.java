@@ -9,15 +9,15 @@ import mindustry.gen.Unit;
 
 
 public enum FilterType {
-  players("a", "all players", "@ @ players", true, t -> Seq.with(Groups.player).map(p -> p.unit())),
-  trigger("p", "the player who triggered the command", "@ yourself", true, t -> Seq.with(t.unit())),
-  random("r", "a random player", "@ @", true, t -> Seq.with(Seq.with(Groups.player).random().unit())),
-  randomUnit("ru", "a random unit", "@ a @", false, t -> Seq.with(Seq.with(Groups.unit).random())),
-  units("e", "all untis and players", "@ @ units and players", false, t -> Seq.with(Groups.unit)),
-  withoutPlayers("u", "all units, except players", "@ @ units", false, t -> Seq.with(Groups.unit).filter(u -> u.getPlayer() == null)),
-  team("t", "all units and players in the team", "@ @ units and players in team @", false, t -> Seq.with(Groups.unit).filter(u -> u.team.equals(t.team()))),
-  playersInTeam("ta", "all players in the team", "@ @ players in team @", true, t -> Seq.with(Groups.player).filter(p -> p.team().equals(t.team())).map(p -> p.unit())),
-  withoutPlayersInTeam("tu", "all units, except players, in the team", "@ @ units in team @", false, t -> Seq.with(Groups.unit).filter(u -> u.getPlayer() == null && u.team.equals(t.team())));
+  players("a", "Todos los jugadores", "@ @ jugador/es", true, t -> Seq.with(Groups.player).map(p -> p.unit())),
+  trigger("p", "Aplica solo a ti", "@ solo a ti", true, t -> Seq.with(t.unit())),
+  random("r", "Jugador aleatorio", "@ @", true, t -> Seq.with(Seq.with(Groups.player).random().unit())),
+  randomUnit("ru", "Unicad aleatoria", "@ a @", false, t -> Seq.with(Seq.with(Groups.unit).random())),
+  units("e", "Todas las unidades y jugadores", "@ @ unidad y jugadores", false, t -> Seq.with(Groups.unit)),
+  withoutPlayers("u", "Todas las unidades pero ignorando a jugadores", "@ @ unidades", false, t -> Seq.with(Groups.unit).filter(u -> u.getPlayer() == null)),
+  team("t", "Equipo: Todas las unidades y jugadores", "@ @ unidad y jugadores en el equipo @", false, t -> Seq.with(Groups.unit).filter(u -> u.team.equals(t.team()))),
+  playersInTeam("ta", "Equipo: Todos los jugadores", "@ @ jugador/es en el equipo @", true, t -> Seq.with(Groups.player).filter(p -> p.team().equals(t.team())).map(p -> p.unit())),
+  withoutPlayersInTeam("tu", "Equipo: Todas las unidades pero ignorando jugadores", "@ @ unidades en el equipo @", false, t -> Seq.with(Groups.unit).filter(u -> u.getPlayer() == null && u.team.equals(t.team())));
 
   public static String prefix = "@";
   public final Func<Player, Seq<Unit>> filter;
