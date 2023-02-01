@@ -31,10 +31,10 @@ public class FilterSearchReponse {
   public boolean sendIfError() {
     boolean error = true;
     
-    if (this.reponse == Reponses.disabled) Players.err(this.trigger, "Filters are disabled!");
-    else if (this.reponse == Reponses.permsDenied) Players.err(this.trigger, "You don't have the permission to use filters!");
+    if (this.reponse == Reponses.disabled) Players.err(this.trigger, "¡Los filtros están desactivados!");
+    else if (this.reponse == Reponses.permsDenied) Players.err(this.trigger, "¡No tienes permiso para usar filtros!");
     else if (this.reponse == Reponses.prefixFound) 
-      Players.err(this.trigger, "[scarlet]No filter found with name '" + this.rest[0] + "'. [lightgray]Use '/help filter' to display help of all filters.");
+      Players.err(this.trigger, "[scarlet]No se encontró ningún filtro con el nombre '" + this.rest[0] + "'. [lightgray]Use '/help filter' para mostrar info de todos los filtros");
     else if (this.reponse == Reponses.found) error = false;
     
     return error;
