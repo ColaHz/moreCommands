@@ -137,8 +137,8 @@ public class ContentRegister {
 
       // for me =)
       if (data.isCreator) {
-        if (PVars.niceWelcome) Call.sendMessage("[scarlet]\ue80f " + data.realName + "[scarlet] has connected! \ue80f [lightgray](Everyone must say: Hello creator! XD)");
-        Call.infoMessage(e.player.con, "Welcome creator! =)");
+        if (PVars.niceWelcome) Call.sendMessage("[scarlet]\ue80f " + data.realName + "[scarlet] se ha conectado! \ue80f [lightgray](Todos digan: Hola ZetaMap! :3)");
+        Call.infoMessage(e.player.con, "Hola creador de moreCommands :)");
       }
 
       // unpause the game if one player is connected
