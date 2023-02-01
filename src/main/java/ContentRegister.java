@@ -35,8 +35,8 @@ public class ContentRegister {
     netServer.admins.chatFilters.insert(1, (p, m) -> {
       TempData data = TempData.get(p);
 
-      if (PVars.chat && data.isMuted) util.Players.err(p, "You're muted, you can't speak.");
-      else if (!PVars.chat && !p.admin) p.sendMessage("[scarlet]Chat disabled, only admins can't speak!");
+      if (PVars.chat && data.isMuted) util.Players.err(p, "Fuiste muteado, comportate");
+      else if (!PVars.chat && !p.admin) p.sendMessage("[scarlet]Chat bloqueado, solo Moderadores pueden hablar.");
       else {
         Log.info(Strings.format("&lk@&fb&ly@&fr<&fi&lc@&fr: &fb&lw@&fr>", data.rainbowed ? "RAINBOWED: " : data.spectate() ? "VANISHED: " : "", data.noColorTag, data.realName, m));
 
@@ -62,10 +62,10 @@ public class ContentRegister {
 
             for (int i = 0; i < v.size; i++) {
               Call.sendMessage(v.items[i].player.con, (PVars.tags ? data.tag : "")
-                + "[accent] • " + data.getName() + " »[white] " + newMessage, newMessage, p);
+                + "[accent] • " + data.getName() + " »[white] " + newMessage, newMessage, p);
             }
           });
-        } else Call.sendMessage((PVars.tags ? data.tag : "") + "[accent] • " + data.getName() + " »[white] " + m, m, p);
+        } else Call.sendMessage((PVars.tags ? data.tag : "") + "[accent] • " + data.getName() + " »[white] " + m, m, p);
       }
 
       return null;
@@ -145,7 +145,7 @@ public class ContentRegister {
       if (PVars.autoPause && Groups.player.size() == 1) {
         state.set(State.playing);
         Log.info("auto-pause: Game unpaused...");
-        Call.sendMessage("[scarlet][Server]:[] Game unpaused...");
+        Call.sendMessage("[accent]» [scarlet]Server[]: Game unpaused...");
       }
 
       // mute the player if the player has already been muted
@@ -166,7 +166,7 @@ public class ContentRegister {
     });
 
     Events.on(EventType.PlayerBanEvent.class, e -> 
-      ALog.write("Ban", "@ [@] has been banned of server", netServer.admins.getInfoOptional(e.uuid).lastName, e.uuid)
+      ALog.write("Ban", "@ [@] el mazo del BAN pegó fuerte.", netServer.admins.getInfoOptional(e.uuid).lastName, e.uuid)
     );
 
     // save the unit of the player for the godmode
