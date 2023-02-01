@@ -37,8 +37,8 @@ public class CommandsManager {
       if (command.value != temp.get(command.key)) {
         handler.removeCommand("host");
         
-        handler.register("host", "[mapname] [mode]", "Open the server. Will default to survival and a random map if not specified.", arg -> 
-          arc.util.Log.warn("Changes have been made. Please restart the server for them to take effect. (tip: write 'exit' to shut down the server)")
+        handler.register("host", "[mapname] [mode]", "Abre el servidor. Se establecerá de forma predeterminada en supervivencia y un mapa aleatorio si no se especifica.", arg -> 
+          arc.util.Log.warn("Se han realizado cambios. Reinicie el servidor para que surtan efecto.")
         );
         return;
       }
