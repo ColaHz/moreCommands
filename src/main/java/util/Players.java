@@ -23,11 +23,11 @@ public class Players {
 	}
 	
 	public static void errNotOnline(Player player) {
-		err(player, "Player not connected or doesn't exist!");
+		err(player, "¡El jugador no está conectado o no existe!");
 	}
 
 	public static void errPermDenied(Player player) {
-		err(player, "You don't have the permission to use arguments!");
+		err(player, "¡No tienes permiso para usar argumentos!");
 	}
 	
 	public static boolean errFilterAction(String action, filter.FilterSearchReponse filter, boolean type) {
@@ -51,7 +51,7 @@ public class Players {
     //check the player if admin 
     public static boolean adminCheck(Player player) {
     	if(!player.admin()){
-    		player.sendMessage("[scarlet]This command is only for admins!");
+    		player.sendMessage("[scarlet]¡Este comando es solo para administradores!");
             return false;
     	} else return true;
     }
