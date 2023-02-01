@@ -90,7 +90,7 @@ public class Effects {
           if (d.hue < 360) d.hue+=5;
           else d.hue = 0;
           
-          for (int i=0; i<5; i++) Call.effectReliable(mindustry.content.Fx.airBubble, d.player.x, d.player.y, 10, arc.graphics.Color.valueOf(Strings.hueToColor(d.hue)));
+          for (int i=0; i<5; i++) Call.effectReliable(mindustry.content.Fx.fluxVapor, d.player.x, d.player.y, 10, arc.graphics.Color.valueOf(Strings.hueToColor(d.hue)));
           d.rainbowedName = Strings.RGBString(d.noColorName, d.hue);
           d.player.name = d.tag + d.rainbowedName;
         });
