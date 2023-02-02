@@ -1984,7 +1984,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       }
     });
 
-    commands.add("kick", "<filter|username|ID> [reason...]", "Kick a person by name or ID", true, false, (arg, data) -> {
+    commands.add("kick", "<filter|username|ID> [reason...]", "con esto le paeas el culo", true, false, (arg, data) -> {
       FilterSearchReponse filter = ArgsFilter.hasFilter(data.player, arg);
       String reason;
 
@@ -1995,13 +1995,13 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
         reason = String.join(" ", filter.rest);
         filter.execute(ctx -> {
           Call.sendMessage("\n[gold]--------------------\n[scarlet]/!\\" + ctx.data.nameColor + ctx.data.realName
-              + "[scarlet] has been kicked of the server."
-              + "\nReason: [white]" + (reason.isBlank() ? "<unknown>" : reason) + "\n[gold]--------------------\n");
+              + "[scarlet] ha sido kickeado del servidor."
+              + "\nMotivo: [white]" + (reason.isBlank() ? "<unknown>" : reason) + "\n[gold]--------------------\n");
           ALog.write("Kick", "@ [@] kicked @ [@] for the reason: @", data.stripedName, data.player.uuid(),
               ctx.data.stripedName, ctx.player.uuid(), reason.isBlank() ? "<unknown>" : reason);
           
           if (reason.isBlank()) ctx.player.kick(KickReason.kick);
-          else ctx.player.kick("You have been kicked from the server!\n[scarlet]Reason: []" + reason);
+          else ctx.player.kick("Has sido kickeado del servidor!\n[scarlet]Motivo: []" + reason);
         });
 
       } else {
@@ -2011,18 +2011,18 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
           reason = String.join(" ", result.rest);
 
           Call.sendMessage("\n[gold]--------------------\n[scarlet]/!\\" + result.data.nameColor
-              + result.data.realName + "[scarlet] has been kicked of the server."
-              + "\nReason: [white]" + (reason.isBlank() ? "<unknown>" : reason) + "\n[gold]--------------------\n");
+              + result.data.realName + "[scarlet] ha sido kickeado del servidor."
+              + "\nMotivo: [white]" + (reason.isBlank() ? "<unknown>" : reason) + "\n[gold]--------------------\n");
           ALog.write("Kick", "@ [@] kicked @ [@] for the reason: @", data.stripedName, data.player.uuid(),
               result.data.stripedName, result.player.uuid(), reason.isBlank() ? "<unknown>" : reason);
           if (reason.isBlank()) result.player.kick(KickReason.kick);
-          else result.player.kick("You have been kicked from the server!\n[scarlet]Reason: []" + reason);
+          else result.player.kick("Has sido kickeado del servidor\n[scarlet]Motivo: []" + reason);
 
-        } else Players.err(data.player, "Nobody with that name or ID could be found...");
+        } else Players.err(data.player, "No se pudo encontrar a nadie con ese nombre o ID...");
       }
     });
 
-    commands.add("pardon", "<ID>", "Pardon a player by ID and allow them to join again", true, false, (arg, data) -> {
+    commands.add("pardon", "<ID>", "Este comando eliminar el kick hecho por jugadores", true, false, (arg, data) -> {
       PlayerInfo info = netServer.admins.getInfoOptional(arg[0]);
 
       if (info != null) {
@@ -2030,10 +2030,10 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
         Players.info(data.player, "Pardoned player: [accent]" + info.lastName);
         ALog.write("Pardon", "@ [@] pardonned @ [@] by his ID", data.stripedName, data.player.uuid(), info.lastName, info.id);
 
-      } else Players.err(data.player, "That ID can't be found.");
+      } else Players.err(data.player, "No se ha encontrado a nadie.");
     });
 
-    commands.add("ban", "<filter|username|ID> [reason...]", "Ban a person", true, false, (arg, data) -> {
+    commands.add("ban", "<filter|username|ID> [reason...]", "el rico ban ban", true, false, (arg, data) -> {
       FilterSearchReponse filter = ArgsFilter.hasFilter(data.player, arg);
       String reason;
 
@@ -2046,17 +2046,17 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
           if (!ctx.player.admin) {
             netServer.admins.banPlayer(ctx.player.uuid());
             Call.sendMessage("\n[gold]--------------------\n[scarlet]/!\\ " + ctx.data.nameColor + ctx.data.realName
-                + "[scarlet] has been banned of the server."
-                + "\nReason: [white]" + (reason.isBlank() ? "<unknown>" : reason) + "\n[gold]--------------------\n");
+                + "[scarlet] le han pegado duro con el mazo del BAN."
+                + "\nMotivo: [white]" + (reason.isBlank() ? "<unknown>" : reason) + "\n[gold]--------------------\n");
             ALog.write("Ban", "@ [@] banned @ [@] for reason: @", data.stripedName, data.player.uuid(),
                 ctx.data.stripedName, ctx.player.uuid(), reason.isBlank() ? "<unknown>" : reason);
             if (reason.isBlank()) ctx.player.kick(KickReason.banned);
             else {
-              ctx.player.kick("You are banned on this server!\n[scarlet]Reason: []" + reason);
+              ctx.player.kick("Fuiste baneado del servidor!\n[scarlet]Motivo: []\n[slate]Si fue un ban injustificado ingresa a nuestro discord" + reason);
               PVars.bansReason.put(ctx.player.uuid(), reason);
             }
 
-          } else Players.err(data.player, "Can't ban an admin!");
+          } else Players.err(data.player, "Este weón es un Moderador, baneate el ojete!");
         });
         saveSettings();
 
@@ -2069,23 +2069,23 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
 
             netServer.admins.banPlayer(result.player.uuid());
             Call.sendMessage("\n[gold]--------------------\n[scarlet]/!\\ " + result.data.nameColor + result.data.realName
-              + "[scarlet] has been banned of the server.\nReason: [white]"
+              + "[scarlet] le han pegado duro con el mazo del BAN.\nMotivo: [white]"
               + (reason.isBlank() ? "<unknown>" : reason) + "\n[gold]--------------------\n");
             ALog.write("Ban", "@ [@] banned @ [@] for reason: @", data.stripedName, data.player.uuid(),
                 result.data.stripedName, result.player.uuid(), reason.isBlank() ? "<unknown>" : reason);
             if (reason.isBlank()) result.player.kick(KickReason.banned);
             else {
-              result.player.kick("You are banned on this server!\n[scarlet]Reason: []" + reason);
+              result.player.kick("Fuiste baneado del servidor!\n[scarlet]Motivo: []\n[slate]Si fue un ban injustificado ingresa a nuestro discord" + reason);
               PVars.bansReason.put(result.player.uuid(), reason);
               saveSettings();
             }
 
-          } else Players.err(data.player, "Can't ban an admin!");
-        } else Players.err(data.player, "No matches found.");
+          } else Players.err(data.player, "Este weón es un Moderador, baneate el ojete!");
+        } else Players.err(data.player, "Invalido, como tu awela.");
       }
     });
 
-    commands.add("unban", "<ID>", "Unban a person", true, false, (arg, data) -> {
+    commands.add("unban", "<ID>", "Le quitas el mazo del culo", true, false, (arg, data) -> {
       if (netServer.admins.unbanPlayerID(arg[0])) {
         PlayerInfo info = netServer.admins.getInfoOptional(arg[0]);
 
@@ -2094,7 +2094,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
         PVars.bansReason.remove(arg[0]);
         saveSettings();
 
-      } else Players.err(data.player, "That ID is not banned!");
+      } else Players.err(data.player, "Esta ID no está baneada!");
     });
   }
 
