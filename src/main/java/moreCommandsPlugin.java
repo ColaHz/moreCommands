@@ -216,7 +216,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
         }
 
         Log.info("Chat @ ...", PVars.chat ? "Habilitado" : "Bloqueado");
-        Call.sendMessage("\n[gold]-------------------- \n[scarlet]/!\\[orange] Chat " + (PVars.chat ? "Habilitado" : "Bloqueado")
+        Call.sendMessage("\n[gold]-------------------- \n[yellow]/!\\[slate] Chat " + (PVars.chat ? "Habilitado" : "Bloqueado")
           + " mediante la [scarlet][[Consola][]! \n[gold]--------------------\n");
         ALog.write("Chat", "[Server] @ the chat", PVars.chat ? "enabled" : "disabled");
 
