@@ -94,7 +94,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       Log.info("auto-pause: Game paused...");
     }
 
-    Log.info("|-> MoreCommands Plugin cargado. =)");
+    Log.info("|-> MoreCommands Plugin cargado, versión rainbow forAdmin =)");
   }
 
   // register commands that run on the server
