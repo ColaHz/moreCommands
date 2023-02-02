@@ -109,7 +109,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       BansManager::bansCommand);
 
     handler.removeCommand("fillitems");
-    commands.add("fillitems", "[team|all] [items...]", "Fill the core with the selected items", arg -> {
+    commands.add("fillitems", "[team|all] [items...]", "Rellena el núcleo con los elementos seleccionados.", arg -> {
       if (!state.is(State.playing)) {
         Log.err("Not playing. Host or unpause first.");
         return;
@@ -119,7 +119,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       Seq<Item> items = content.items().copy();
 
       if (arg.length == 0) {
-        Log.info("Items of all teams:");
+        Log.info("Items de todos los equipos:");
         teams.each(t -> {
           mindustry.world.modules.ItemModule coreItems = t.cores().first().items;
           Seq<String> teamItems = items.select(i -> coreItems.has(i)).map(i -> i.name + "=" + coreItems.get(i) + ", ");
@@ -143,10 +143,10 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
         Team team = Players.findTeam(arg[0]);
 
         if (team == null) {
-          Log.err("No team with that name found.");
+          Log.err("No se encontró ningún equipo con ese nombre.");
           return;
         } else if (state.teams.cores(team).isEmpty()) {
-          Log.err("That team has no cores.");
+          Log.err("Ese equipo no tiene núcleos.");
           return;
         }
 
@@ -161,7 +161,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
         for (String name : arg[1].split(" ")) {
           found = content.item(name);
           if (found == null) {
-            Log.err("No item with name '@' found", name);
+            Log.err("Ningún item con nombre '@' encontrado", name);
             return;
           }
           items.add(found);
@@ -182,7 +182,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
         (arg.length == 1 ? "" : "&fr with item" + (items.size > 1 ? "&frs &lb" : " ") + items.toString(", ")));
     });
 
-    commands.add("auto-pause", "Pause the game if there is no one connected", arg -> {
+    commands.add("auto-pause", "Pausa el juego si no hay nadie conectado", arg -> {
       PVars.autoPause = !PVars.autoPause;
       Config.autoPause.set(false);
       Log.info("Auto pause @...", PVars.autoPause ? "enabled" : "disabled");
@@ -194,33 +194,33 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       }
     });
 
-    commands.add("chat", "[on|off]", "Enabled/disabled the chat", arg -> {
+    commands.add("chat", "[on|off]", "Habilita/bloquea el chat", arg -> {
       if (arg.length == 1) {
         if (Strings.choiseOn(arg[0])) {
           if (PVars.chat) {
-            Log.err("Disabled first!");
+            Log.err("Bloquea primero");
             return;
           }
           PVars.chat = true;
 
         } else if (Strings.choiseOff(arg[0])) {
           if (!PVars.chat) {
-            Log.err("Enabled first!");
+            Log.err("Habilita primero");
             return;
           }
           PVars.chat = false;
 
         } else {
-          Log.err("Invalid arguments. \n - The chat is currently @.", PVars.chat ? "enabled" : "disabled");
+          Log.err("Argumentos inválidos. \n - El chat está actualmente @.", PVars.chat ? "Habilitado" : "Bloqueado");
           return;
         }
 
-        Log.info("Chat @ ...", PVars.chat ? "enabled" : "disabled");
-        Call.sendMessage("\n[gold]-------------------- \n[scarlet]/!\\[orange] Chat " + (PVars.chat ? "enabled" : "disabled")
-          + " by [scarlet][[Server][]! \n[gold]--------------------\n");
+        Log.info("Chat @ ...", PVars.chat ? "Habilitado" : "Bloqueado");
+        Call.sendMessage("\n[gold]-------------------- \n[scarlet]/!\\[orange] Chat " + (PVars.chat ? "Habilitado" : "Bloqueado")
+          + " mediante la [scarlet][[Consola][]! \n[gold]--------------------\n");
         ALog.write("Chat", "[Server] @ the chat", PVars.chat ? "enabled" : "disabled");
 
-      } else Log.info("The chat is currently @.", PVars.chat ? "enabled" : "disabled");
+      } else Log.info("El chat está actualmente @.", PVars.chat ? "Habilitado" : "Bloqueado");
     });
 
     commands.add("nice-welcome", "Nice welcome for me", arg -> {
@@ -276,26 +276,26 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       }
     });
 
-    commands.add("clear-map", "[y|n]", "Kill all units and destroy all blocks except cores, on the current map.", arg -> {
+    commands.add("clear-map", "[y|n]", "Elimina Unidades y bloques excepto los núcleos", arg -> {
       if (!state.is(mindustry.core.GameState.State.playing)) Log.err("Not playing. Host first.");
       else {
         if (arg.length == 1 && !PVars.clearConfirm) {
-          Log.err("Use first: 'clear-map', before confirming the command.");
+          Log.err("Usa primero: 'clear-map', antes de confirmar el comando.");
           return;
         } else if (!PVars.clearConfirm) {
-          Log.warn("This command can crash the server! Are you sure you want it executed? (clear-map <y|n>)");
+          Log.warn("¡Este comando puede bloquear el servidor! ¿Estás seguro de que quieres que se ejecute? (clear-map <y|n>)");
           PVars.clearConfirm = true;
           return;
         } else if (arg.length == 0 && PVars.clearConfirm) {
-          Log.warn("This command can crash the server! Are you sure you want it executed? (clear-map <y|n>)");
+          Log.warn("¡Este comando puede bloquear el servidor! ¿Estás seguro de que quieres que se ejecute? (clear-map <y|n>)");
           PVars.clearConfirm = true;
           return;
         }
 
         switch (arg[0]) {
           case "y": case "yes":
-            Log.info("Begining ...");
-            Call.infoMessage("[scarlet]The map will be reset in [orange]10[] seconds! \n[]All units, players, and buildings (except core) will be destroyed.");
+            Log.info("Empezando...");
+            Call.infoMessage("[scarlet]El mapa se restablecerá en [orange]10[] segundos! \n[]Todas las unidades, jugadores y edificios (excepto los núcleos) serán destruido.");
             try { Thread.sleep(10000); } 
             catch (InterruptedException e) {}
 
@@ -318,24 +318,24 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
             unitCounter += Groups.unit.size();
             Groups.unit.each(u -> u.kill());
 
-            Log.info("Map cleaned! (Killed @ units and destroy @ blocks)", unitCounter, blockCounter);
-            Call.infoMessage(Strings.format("[green]Map cleaned! [lightgray](Killed [scarlet]@[] units and destroy [scarlet]@[] blocks)", unitCounter, blockCounter));
+            Log.info("Mapa limpiado! (Se eliminó @ unidades y @ bloques)", unitCounter, blockCounter);
+            Call.infoMessage(Strings.format("[green]Mapa limpiado! [lightgray](Se eliminó [scarlet]@[] unidades y [scarlet]@[] bloques)", unitCounter, blockCounter));
             break;
 
-          default: Log.info("Confirmation canceled ...");
+          default: Log.info("Confirmación cancelada...");
         }
         PVars.clearConfirm = false;
       }
     });
 
-    commands.add("gamemode", "[name]", "Change the gamemode of the current map", arg -> {
+    commands.add("gamemode", "[name]", "Cambiar el modo de juego del mapa actual", arg -> {
       if (state.is(mindustry.core.GameState.State.playing)) {
         if (arg.length == 1) {
           try {
             state.rules = state.map.applyRules(Gamemode.valueOf(arg[0]));
             Call.worldDataBegin();
             Groups.player.each(p -> netServer.sendWorldData(p));
-            Log.info("Gamemode set to '@'", arg[0]);
+            Log.info("Gamemode seteado en '@'", arg[0]);
 
           } catch (IllegalArgumentException e) { Log.err("No gamemode '@' found.", arg[0]); }
         } else Log.info("The gamemode is curently '@'", state.rules.mode().name());
@@ -733,9 +733,9 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
     ContentRegister.CommandsRegister commands = ContentRegister.setHandler(handler);
 
     handler.removeCommand("t");
-    commands.add("t", "<message...>", "Send a message only to your teammates", false, false, (arg, data) -> {
-      if (PVars.chat && data.isMuted) util.Players.err(data.player, "You're muted, you can't speak.");
-      else if (!PVars.chat && !data.player.admin) data.player.sendMessage("[scarlet]Chat disabled, only admins can't speak!");
+    commands.add("t", "<message...>", "Envía un mensaje solo a tus compañeros de equipo", false, false, (arg, data) -> {
+      if (PVars.chat && data.isMuted) util.Players.err(data.player, "Estás silenciado/a, no puedes hablar.");
+      else if (!PVars.chat && !data.player.admin) data.player.sendMessage("[scarlet]Chat desactivado, solo los moderadores pueden hablar!");
       else Groups.player.each(p -> p.team() == data.player.team(), p -> p.sendMessage(Strings.format("[#@]<T> [coral][[@[coral]]:[white] @",
               data.player.team().color.toString(), data.nameColor + data.realName, arg[0]), data.player, arg[0]));
     });
