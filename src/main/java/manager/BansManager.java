@@ -36,7 +36,7 @@ public class BansManager {
         if (bans.isEmpty()) Log.info("No se encontró jugador/es baneado por ID.");
         else {
           Log.info("Jugadores baneados [ID]: Total: " + bans.size);
-          bans.each(info -> Log.info("| @ - Last name: '@' - Reason: @", info.id, info.lastName, PVars.bansReason.get(info.id, "<unknown>")));
+          bans.each(info -> Log.info("| @ - Nombre: '@' - Motivo: @", info.id, info.lastName, PVars.bansReason.get(info.id, "<No definido>")));
         }
 
         if (ipbans.isEmpty()) Log.info("No se encontró jugador/es baneado por IP");
@@ -77,11 +77,11 @@ public class BansManager {
           TempData.each(d -> {
             if (netServer.admins.isIDBanned(d.player.uuid())) {
               Call.sendMessage("\n[gold]--------------------\n[scarlet]/[yellow]El jugador[]\\ " + d.nameColor + d.realName
-                  + "[scarlet] fue azotado por el mazo del BAN.\nMotivo: [white]" + PVars.bansReason.get(arg[2])
+                  + "[scarlet] ha sido baneado del servidor.\nMotivo: [white]" + PVars.bansReason.get(arg[2])
                   + "\n[gold]--------------------\n");
               ALog.write("Ban", "[Server] Fue baneado @ [@] por el motivo de: @", d.stripedName, d.player.uuid(), PVars.bansReason.get(arg[2]));
               if (arg.length == 3 || arg[3].isBlank()) d.player.kick(KickReason.banned);
-              else d.player.kick("Fuiste baneado del servidor, apela en nuestro discord.\n[scarlet]Motivo de ban: []" + PVars.bansReason.get(arg[2]));
+              else d.player.kick("Fuiste baneado del servidor.\n[scarlet]Motivo: []" + PVars.bansReason.get(arg[2]));
             }
           });
 
