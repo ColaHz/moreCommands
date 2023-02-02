@@ -43,8 +43,8 @@ public class TempData {
 
   public void applyTag() {
     if (PVars.tags && PVars.playerTags.containsKey(this.player.uuid())) {
-      this.tag = "[white]" + PVars.playerTags.get(this.player.uuid()) + "";
-      this.noColorTag = Strings.stripColors(this.tag).strip().substring(1) + " ";
+      this.tag = "[white]" + PVars.playerTags.get(this.player.uuid()) + "test";
+      this.noColorTag = Strings.stripColors(this.tag).strip().substring(1) + "test";
 
     } else if (PVars.tags && this.player.admin) {
       this.tag = "[gold][[[scarlet]<Admin>[gold]] ";
