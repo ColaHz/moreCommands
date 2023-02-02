@@ -1277,7 +1277,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       }
     });
 
-    commands.add("team", "[list|teamName|vanish|~] [filter|username...]", "Cambia de team", true, false, (args, data) -> {
+    commands.add("team2", "[list|teamName|vanish|~] [filter|username...]", "Cambia de team", true, false, (args, data) -> {
       StringBuilder builder = new StringBuilder();
       Team ret = null;
       FilterSearchReponse filter = null;
