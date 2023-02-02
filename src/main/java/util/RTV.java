@@ -19,16 +19,16 @@ public class RTV {
 		} catch (NullPointerException e) {}
 		state.map = temp;
 		
-        if (state.rules.waves) Log.info("Game over! Reached wave @ with @ players online on map @.", state.wave, Groups.player.size(), Strings.capitalize(Strings.stripColors(state.map.name())));
-        else Log.info("Game over! Vote to change map with @ players online on map @.", Groups.player.size(), Strings.capitalize(Strings.stripColors(state.map.name())));
+        if (state.rules.waves) Log.info("¡GG! Ola alcanzada @ con @ jugadores en linea en el mapa @.", state.wave, Groups.player.size(), Strings.capitalize(Strings.stripColors(state.map.name())));
+        else Log.info("¡GG! Votaron para cambiar de mapa con @ jugadores en linea en el mapa @.", Groups.player.size(), Strings.capitalize(Strings.stripColors(state.map.name())));
 
         //set next map to be played
-        Call.infoMessage(Strings.format("@![]\n \nNext selected map:[accent] @ [white] by [accent]@ [white].\nNew game begins in 10 seconds.", 
-        	state.rules.pvp ? "[accent]Vote to change map" : "[scarlet]Game over", map.name(), map.author()));
+        Call.infoMessage(Strings.format("@![]\n \nMapa siguiente:[accent] @ [white] by [accent]@ [white].\nEl nuevo juego comienza en 10 segundos.", 
+        	state.rules.pvp ? "[accent]Vote to change map" : "[scarlet]¡GG!", map.name(), map.author()));
 
         state.gameOver = true;
         Call.updateGameOver(winner);
-        Log.info("Selected next map to be @.", Strings.stripColors(map.name()));
+        Log.info("El siguiente mapa es @.", Strings.stripColors(map.name()));
 
         arc.util.Timer.schedule(() -> {
         	try {
