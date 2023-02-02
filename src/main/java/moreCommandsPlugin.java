@@ -1859,8 +1859,8 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
         }
 
         Log.info("Chat @ by @.", PVars.chat ? "habilitado" : "bloqueado", data.realName);
-        Call.sendMessage("\n[gold]--------------------\n[scarlet]/!\\[orange] Chat " + (PVars.chat ? "habilitado" : "bloqueado")
-          + " por " + data.realName + "[orange]! \n[gold]--------------------\n");
+        Call.sendMessage("\n[gold]--------------------\n[yellow]/!\\[slate] Chat " + (PVars.chat ? "habilitado" : "bloqueado")
+          + " por " + data.realName + "[yellow]! \n[gold]--------------------\n");
         ALog.write("Chat", "@ [@] @ the chat", data.stripedName, data.player.uuid(), PVars.chat ? "habilitado" : "bloqueado");
 
       } else data.player.sendMessage("El chat actualmente esta " + (PVars.chat ? "habilitado." : "bloqueado."));
@@ -1907,8 +1907,8 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
             t.isMuted = true;
             PVars.recentMutes.add(ctx.player.uuid());
 
-            Call.sendMessage("\n[gold]--------------------\n[scarlet]/!\\" + t.nameColor + t.realName
-              + "[scarlet] le han metido un calcetín en la boca."
+            Call.sendMessage("\n[gold]--------------------\n[yellow]/!\\" + t.nameColor + t.realName
+              + "[slate] le han metido un calcetín en la boca."
               + "\nMotivo: [white]" + (reason.isBlank() ? "<unknown>" : reason) + "\n[gold]--------------------\n");
             Call.infoMessage(t.player.con, "Has sido silenciado/a con un calcetín [lightgray](por " + data.realName + "[lightgray]) \n[scarlet]Motivo: []"
               + (arg.length == 2 && !reason.isBlank() ? reason : "<unknown>"));
@@ -1927,8 +1927,8 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
             result.data.isMuted = true;
             PVars.recentMutes.add(result.player.uuid());
 
-            Call.sendMessage("\n[gold]--------------------\n[scarlet]/!\\" + result.data.nameColor + result.data.realName
-              + "[scarlet] le han metido un calcetín en la boca.\nMotivo: [white]"
+            Call.sendMessage("\n[gold]--------------------\n[yellow]/!\\" + result.data.nameColor + result.data.realName
+              + "[slate] le han metido un calcetín en la boca.\nMotivo: [white]"
               + (reason.isBlank() ? "<unknown>" : reason) + "\n[gold]--------------------\n");
             Call.infoMessage(result.player.con, "Has sido silenciado/a con un calcetín [lightgray](por " + data.realName + "[lightgray]) \n[scarlet]Motivo: []"
               + (reason.isBlank() ? "<unknown>" : reason));
@@ -1994,8 +1994,8 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
 
         reason = String.join(" ", filter.rest);
         filter.execute(ctx -> {
-          Call.sendMessage("\n[gold]--------------------\n[scarlet]/!\\" + ctx.data.nameColor + ctx.data.realName
-              + "[scarlet] ha sido kickeado del servidor."
+          Call.sendMessage("\n[gold]--------------------\n[yellow]/!\\" + ctx.data.nameColor + ctx.data.realName
+              + "[slate] ha sido kickeado del servidor."
               + "\nMotivo: [white]" + (reason.isBlank() ? "<unknown>" : reason) + "\n[gold]--------------------\n");
           ALog.write("Kick", "@ [@] kicked @ [@] for the reason: @", data.stripedName, data.player.uuid(),
               ctx.data.stripedName, ctx.player.uuid(), reason.isBlank() ? "<unknown>" : reason);
@@ -2010,8 +2010,8 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
         if (result.found) {
           reason = String.join(" ", result.rest);
 
-          Call.sendMessage("\n[gold]--------------------\n[scarlet]/!\\" + result.data.nameColor
-              + result.data.realName + "[scarlet] ha sido kickeado del servidor."
+          Call.sendMessage("\n[gold]--------------------\n[yellow]/!\\" + result.data.nameColor
+              + result.data.realName + "[slate] ha sido kickeado del servidor."
               + "\nMotivo: [white]" + (reason.isBlank() ? "<unknown>" : reason) + "\n[gold]--------------------\n");
           ALog.write("Kick", "@ [@] kicked @ [@] for the reason: @", data.stripedName, data.player.uuid(),
               result.data.stripedName, result.player.uuid(), reason.isBlank() ? "<unknown>" : reason);
@@ -2046,7 +2046,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
           if (!ctx.player.admin) {
             netServer.admins.banPlayer(ctx.player.uuid());
             Call.sendMessage("\n[gold]--------------------\n[scarlet]/!\\ " + ctx.data.nameColor + ctx.data.realName
-                + "[scarlet] le han pegado duro con el mazo del BAN."
+                + "[slate] fue azotado con el mazo del [scarlet]BAN."
                 + "\nMotivo: [white]" + (reason.isBlank() ? "<unknown>" : reason) + "\n[gold]--------------------\n");
             ALog.write("Ban", "@ [@] banned @ [@] for reason: @", data.stripedName, data.player.uuid(),
                 ctx.data.stripedName, ctx.player.uuid(), reason.isBlank() ? "<unknown>" : reason);
@@ -2069,7 +2069,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
 
             netServer.admins.banPlayer(result.player.uuid());
             Call.sendMessage("\n[gold]--------------------\n[scarlet]/!\\ " + result.data.nameColor + result.data.realName
-              + "[scarlet] le han pegado duro con el mazo del BAN.\nMotivo: [white]"
+              + "[slate] fue azotado por el mazo del [scarlet]BAN.\nMotivo: [white]"
               + (reason.isBlank() ? "<unknown>" : reason) + "\n[gold]--------------------\n");
             ALog.write("Ban", "@ [@] banned @ [@] for reason: @", data.stripedName, data.player.uuid(),
                 result.data.stripedName, result.player.uuid(), reason.isBlank() ? "<unknown>" : reason);
