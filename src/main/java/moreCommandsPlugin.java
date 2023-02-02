@@ -1087,7 +1087,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       }
     });
 
-    commands.add("rainbow", "[filter|ID|username...]", "[#ff0000]A[#ff7f00]R[#ffff00]C[#00ff00]O[#0000ff]I[#2e2b5f]R[#8B00ff]I[#ff0000]S[#ff7f00]!", false, false, (arg, data) -> {
+    commands.add("rainbow", "[filter|ID|username...]", "[#ff0000]A[#ff7f00]R[#ffff00]C[#00ff00]O[#0000ff]I[#2e2b5f]R[#8B00ff]I[#ff0000]S[#ff7f00]!", true, false, (arg, data) -> {
       TempData target = data;
 
       if (arg.length == 1) {
