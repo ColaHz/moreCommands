@@ -82,7 +82,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       if (Strings.parseFloat(lastestV[1].isBlank() ? lastestV[0]
           : lastestV[0] + (lastestV[1].length() == 1 ? ".0" : ".") + lastestV[1]) > Strings.parseFloat(
               pluginV[1].isBlank() ? pluginV[0] : pluginV[0] + (pluginV[1].length() == 1 ? ".0" : ".") + pluginV[1]))
-        Log.info( "A new version of moreCommands is available! See 'github.com/ZetaMap/moreCommands/releases' to download it!");
+        Log.info( "Nueva versión disponible 'github.com/ZetaMap/moreCommands/releases' ve");
     }, null);
 
     ContentRegister.initFilters(); // init chat and actions filters
@@ -94,7 +94,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       Log.info("auto-pause: Game paused...");
     }
 
-    Log.info("|-> MoreCommands Plugin loaded! enjoy the fun =)");
+    Log.info("|-> MoreCommands Plugin cargado. =)");
   }
 
   // register commands that run on the server
@@ -161,7 +161,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
         for (String name : arg[1].split(" ")) {
           found = content.item(name);
           if (found == null) {
-            Log.err("Ningún item con nombre '@' encontrado", name);
+            Log.err("El item '@' no existe", name);
             return;
           }
           items.add(found);
@@ -736,12 +736,12 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
     commands.add("t", "<message...>", "Envía un mensaje solo a tus compañeros de equipo", false, false, (arg, data) -> {
       if (PVars.chat && data.isMuted) util.Players.err(data.player, "Estás silenciado/a, no puedes hablar.");
       else if (!PVars.chat && !data.player.admin) data.player.sendMessage("[scarlet]Chat desactivado, solo los moderadores pueden hablar!");
-      else Groups.player.each(p -> p.team() == data.player.team(), p -> p.sendMessage(Strings.format("[accent]<[#@]T[]> @ [accent]»[#@] @",
+      else Groups.player.each(p -> p.team() == data.player.team(), p -> p.sendMessage(Strings.format("[accent]<[#@]Team[]> @ [accent]» @",
               data.player.team().color.toString(), data.nameColor + data.realName, arg[0]), data.player, arg[0]));
     });
 
     handler.removeCommand("a");
-    commands.add("a", "<message...>", "Send a message only to admins", true, false, (arg, data) ->
+    commands.add("a", "<message...>", "Chat privado entre moderadores", true, false, (arg, data) ->
       Groups.player.each(p -> p.admin, p -> p.sendMessage(Strings.format("[accent]<[scarlet]A[]> @ [scarlet]»[accent] @",
         data.nameColor + data.realName, arg[0]), data.player, arg[0]))
     );
@@ -755,12 +755,12 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
         if (data.player.admin) {
           if (arg[0].equals("filter") || arg[0].equals("filters")) {
             result.append("Info de todos los filtros ");
-            for (FilterType type : FilterType.values()) result.append("\n - [gold]" + type.getValue() + "[]: Este filtro se dirige a [sky]" + type.desc + "[].");
+            for (FilterType type : FilterType.values()) result.append("\n - [gold]" + type.getValue() + "[]: Aplica: [sky]" + type.desc + "[].");
             data.player.sendMessage(result.toString());
             return;
 
           } else if (filter.reponse == Reponses.found) {
-            data.player.sendMessage("Ayuda de filtro [gold]" + filter.type.getValue() + "[]: \nEl filtro se dirige a [sky]" + filter.type.desc + "[].");
+            data.player.sendMessage("Ayuda de filtro [gold]" + filter.type.getValue() + "[]: \nAplica: [sky]" + filter.type.desc + "[].");
             return;
 
           } else if (filter.reponse == Reponses.notFound) {
@@ -891,7 +891,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
     commands.add("vnw", "[number]", "Vota para saltar oleadas", false, false, (arg, data) -> {
       if (!PVars.canVote) return;
       else if (Groups.player.size() < 1 && !data.player.admin) {
-        data.player.sendMessage("[scarlet]1 este mensaje no tiene por qué aparecer.");
+        data.player.sendMessage("[scarlet]1 este mensaje no tiene que aparecer.");
         return;
       } else if (data.votedVNW) {
         data.player.sendMessage("Ya votaste." + (PVars.waveVoted != 1 ? " [lightgray](" + PVars.waveVoted + " oleadas)" : ""));
@@ -1104,8 +1104,8 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
               if (ctx.data.rainbowed) ctx.data.hasEffect = false;
               else ctx.data.applyTag();
 
-              data.player.sendMessage(Strings.format("[sky]Efecto arcoiris activado @ @[].",
-                ctx.data.rainbowed ? "on" : "off", " Para la jugador/a [accent]" + ctx.data.realName));
+              data.player.sendMessage(Strings.format("[sky]Efecto arcoiris @ @[].",
+                ctx.data.rainbowed ? "activado" : "apagado", " para el jugador [accent]" + ctx.data.realName));
               ALog.write("Rainbow", "@ [@] @ el efecto arcoíris para @ [@]", data.stripedName, data.player.uuid(),
                 ctx.data.rainbowed ? "start" : "remove", ctx.data.stripedName, ctx.player.uuid());
             }
@@ -1141,8 +1141,8 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
 
       } else target.applyTag();
       
-      data.player.sendMessage(Strings.format( "[sky]Efecto arcoiris activado @ @[].", target.rainbowed ? "on" : "off", 
-        arg.length == 1 ? " Para la jugador/a [accent]" + target.realName: ""));
+      data.player.sendMessage(Strings.format( "[sky]Efecto arcoiris @ @[].", target.rainbowed ? "activado" : "apagado", 
+        arg.length == 1 ? " para el jugador [accent]" + target.realName: ""));
     });
 
     commands.add("effect", "[list|name|id] [page|ID|username...]", "Juega con efectos de particulas y lucete ante tu rival o compañeros", false, false, (arg, data) -> {
@@ -1304,7 +1304,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
             TempData t = TempData.get(ctx.player);
 
             if (t.spectate()) {
-              t.player.sendMessage(">[orange] transferring back to last team");
+              t.player.sendMessage(">[orange] transferido a un team");
               t.player.team(t.spectate);
               Call.setPlayerTeamEditor(t.player, t.spectate);
               t.spectate = null;
@@ -1315,7 +1315,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
         return;
 
       } else if (target.spectate()) {
-        target.player.sendMessage(">[orange] transferring back to last team");
+        target.player.sendMessage(">[orange] transferido a un team");
         target.player.team(target.spectate);
         Call.setPlayerTeamEditor(target.player, target.spectate);
         target.spectate = null;
@@ -1360,8 +1360,8 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
               target.player.unit().kill();
               target.player.name = "";
 
-              target.player.sendMessage("[green]VANISH MODE[] \nuse /team to go back to player mode.");
-              data.player.sendMessage("You put [accent]" + target.realName + "[white] in vanish mode");
+              target.player.sendMessage("[green]VANISH MODE[] \nuse /team para salir del modo Vanish.");
+              data.player.sendMessage("Te has seteado [accent]" + target.realName + "[white] el vanish mode");
               ALog.write("Team", "@ [@] vanished @ [@]", data.stripedName, data.player.uuid(), target.stripedName, target.player.uuid());
             }
             return;
@@ -1402,7 +1402,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
               if (!noCore) Call.setPlayerTeamEditor(ctx.player, retF);
               ctx.player.team(retF);
 
-              data.player.sendMessage("> Cambiaste [accent]" + (args.length == 2 ? ctx.data.realName : "") + "[white] al team [sky]" + retF.name);
+              data.player.sendMessage("> Seteado [accent]" + (args.length == 2 ? ctx.data.realName : "") + "[white] al team [sky]" + retF.name);
               ALog.write("Team", "@ [@] changed @ [@] to the team @", data.stripedName, data.player.uuid(), ctx.data.stripedName, ctx.player.uuid(), retF.name);
               return false;
 
@@ -1411,17 +1411,17 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
               return true;
             }
           });
-          if (!filter.type.onlyPlayers) data.player.sendMessage("> Cambiaste [green]" + counter + "[] unidades al team [sky]" + retF.name);
+          if (!filter.type.onlyPlayers) data.player.sendMessage("> Seteado [green]" + counter + "[] unidades al team [sky]" + retF.name);
 
         } else {
           if (!noCore) Call.setPlayerTeamEditor(target.player, ret);
           target.player.team(ret);
 
-          data.player.sendMessage("> You changito [accent]" + (args.length == 2 ? target.realName : "") + "[white] to team [sky]" + ret.name);
+          data.player.sendMessage("> Seteado [accent]" + (args.length == 2 ? target.realName : "") + "[white] al team [sky]" + ret.name);
           ALog.write("Team", "@ [@] changed @ [@] to the team @", data.stripedName, data.player.uuid(), target.stripedName, target.player.uuid(), retF.name);
         }
 
-      } else Players.err(data.player, "Other team has no core, can't change!");
+      } else Players.err(data.player, "Team sin core, prueba con otro comando si eres administrador.");
     });
 
     commands.add("players", "<help|searchFilter> [page]", "Muestra la lista de jugadores", true, false, (arg, data) -> {
@@ -1435,7 +1435,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
             data.player.sendMessage("[green]No hay jugadores baneados");
             return;
           }
-          message = "\nTotal de baneados : [green]" + netServer.admins.getBanned().size + ". \n[gold]-------------------------------- \n[accent]Jugadores baneados:";
+          message = "\nLista de baneados : [green]" + netServer.admins.getBanned().size + ". \n[gold]-------------------------------- \n[accent]Jugadores baneados:";
           netServer.admins.getBanned().each(p -> list.add("[white] - [lightgray]Names:[accent] [[[white]"
             + p.names.toString("[accent], [white]") + "[accent]][white] - [lightgray]ID: [accent]'" + p.id + "'"
             + "[white] - [lightgray]Kicks: [accent]" + p.timesKicked + (p.admin ? "[white] | [scarlet]Admin[]" : "") + "\n"));
@@ -1447,7 +1447,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
             return;
           }
 
-          message = "\nTotal de muteados : [green]" + PVars.recentMutes.size + ". \n[gold]-------------------------------- \n[accent]Jugadores muteados:";
+          message = "\nLista de muteados : [green]" + PVars.recentMutes.size + ". \n[gold]-------------------------------- \n[accent]Jugadores muteados:";
           PVars.recentMutes.each(p -> {
             PlayerInfo pl = netServer.admins.getInfoOptional(p);
             list.add("[white] - [lightgray]Names: [accent][[[white]" + pl.names.toString("[accent], [white]")
@@ -1458,12 +1458,12 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
           break;
 
         case "online":
-          message = "\nTotal de jugadores Online: [green]" + Groups.player.size() + "[].\n[gold]--------------------------------[]\n[accent]Lista de jugadores:";
+          message = "\nLista de jugadores en linea: [green]" + Groups.player.size() + "[].\n[gold]--------------------------------[]\n[accent]Conectados:";
           Groups.player.each(p -> list.add(" - [lightgray]" + TempData.get(p).realName + "[] : [accent]'" + p.uuid() + "'[]" + (p.admin ? "[white] | [scarlet]Admin[]" : "") + "\n[accent]"));
           break;
 
         case "admin":
-          message = "\nModeradores: [green]" + netServer.admins.getAdmins().size + "[].\n[gold]--------------------------------[]\n[accent]Mod players:";
+          message = "\nLista de Moderadores: [green]" + netServer.admins.getAdmins().size + "[].\n[gold]--------------------------------[]\n[accent]Jugadores:";
           netServer.admins.getAdmins().each(p -> list.add("[white] - [lightgray]Names: [accent][[[white]"
             + p.names.toString("[accent], [white]") + "[accent]][white] - [lightgray]ID: [accent]'" + p.id + "'"
             + (p.banned ? "[white] | [orange]Banned" : "")
@@ -1471,7 +1471,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
           break;
 
         case "all":
-          message = "\nTotal de todos jugadores: [green]" + netServer.admins.getWhitelisted().size + "[].\n[gold]--------------------------------[]\n[accent]Lista de jugadores:";
+          message = "\nTodos los jugadores: [green]" + netServer.admins.getWhitelisted().size + "[].\n[gold]--------------------------------[]\n[accent]Lista:";
           netServer.admins.getWhitelisted().each(p -> list.add("[white] - [lightgray]Names: [accent][[[white]"
             + p.names.toString("[accent], [white]") + "[accent]][white] - [lightgray]ID: [accent]'" + p.id + "'"
             + (p.admin ? "[white] | [scarlet]Admin" : "")
@@ -1482,12 +1482,12 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
         default: Players.err(data.player, "El argumento quedó en silla de rueda..");
         case "help":
           data.player.sendMessage("[scarlet]Argumentos disponibles: []"
-            + "\n[lightgray] - [accent]ban[]: [white] Lista de baneados"
-            + "\n[lightgray] - [accent]mute[]: [white] Lista de muteados"
-            + "\n[lightgray] - [accent]online[]: [white] Lista de Online"
-            + "\n[lightgray] - [accent]admin[]: [white] Lista de Moderadores"
-            + "\n[lightgray] - [accent]all[]: [white] Lista de todos los jugadores"
-            + "\n[lightgray] - [accent]help[]: [white] Muestra info de ayuda");
+            + "\n[lightgray] - [accent]ban[]: [white] Muestra los baneados"
+            + "\n[lightgray] - [accent]mute[]: [white] Muestra los muteados"
+            + "\n[lightgray] - [accent]online[]: [white] Muestra los conectado"
+            + "\n[lightgray] - [accent]admin[]: [white] Muestra los Moderadores"
+            + "\n[lightgray] - [accent]all[]: [white] Muestra todos los jugadores"
+            + "\n[lightgray] - [accent]help[]: [white] hola, ya lo ejecutaste");
           return;
       }
 
@@ -1591,7 +1591,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       }
 
       Call.constructFinish(data.player.tileOn(), core, data.player.unit(), (byte) 0, team, false);
-      data.player.sendMessage("[green]Core build" + (arg.length == 2 ? "for the team [accent]" + team.name : ""));
+      data.player.sendMessage("[green]Core colocado" + (arg.length == 2 ? "al team [accent]" + team.name : ""));
       ALog.write("Core", "@ [@] build a @ at @,@ for team @", data.stripedName, data.player.uuid(), core.name, data.player.tileX(), data.player.tileY(), team.name);
     });
 
@@ -1649,7 +1649,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       }
 
       if (co[0] > world.width() || co[0] < 0 || co[1] > world.height() || co[1] < 0) {
-        data.player.sendMessage("[scarlet]La coordenada es muy grande. Max: [orange]" + world.width() + "[]x[orange]" + world.height() + "[]. Min: [orange]0[]x[orange]0[].");
+        data.player.sendMessage("[scarlet]La coordenada es muy grande, como mi pija. Max: [orange]" + world.width() + "[]x[orange]" + world.height() + "[]. Min: [orange]0[]x[orange]0[].");
         return;
       }
 
@@ -1659,20 +1659,20 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
 
           Players.tpPlayer(ctx.unit, x, y);
           if (ctx.player != null) {
-            data.player.sendMessage("[green]You teleported [accent]" + ctx.data.realName + "[green] to [accent]" + x / 8 + "[green]x[accent]" + y / 8 + "[green].");
+            data.player.sendMessage("[green]Tepeado [accent]" + ctx.data.realName + "[green] a [accent]" + x / 8 + "[green]x[accent]" + y / 8 + "[green].");
             ALog.write("Tp", "@ [@] teleported @ [@] at @,@", data.stripedName, data.player.uuid(), ctx.data.stripedName, ctx.player.uuid(), x / 8, x / 8);
             return false;
           } else return true;
         });
 
         if (!filter.type.onlyPlayers)
-          data.player.sendMessage("[green]You teleported [orange]" + counter + "[] units to [accent]" + co[0] + "[]x[accent]" + co[1] + "[].");
+          data.player.sendMessage("[green]Tepeado [orange]" + counter + "[] unidades a [accent]" + co[0] + "[]x[accent]" + co[1] + "[].");
 
       } else {
         Players.tpPlayer(target.player.unit(), x, y);
-        if (arg.length == 2) data.player.sendMessage("[green]You teleported [accent]" + target.realName + "[green] to [accent]" + co[0]
+        if (arg.length == 2) data.player.sendMessage("[green]Tepeado [accent]" + target.realName + "[green] a [accent]" + co[0]
           + "[green]x[accent]" + co[1] + "[green].");
-        else data.player.sendMessage("[green]You teleported to [accent]" + co[0] + "[]x[accent]" + co[1] + "[].");
+        else data.player.sendMessage("[green]Tepeado [accent]" + co[0] + "[]x[accent]" + co[1] + "[].");
         ALog.write("Tp", "@ [@] teleported @ [@] at @,@", data.stripedName, data.player.uuid(), target.stripedName, target.player.uuid(), co[0], co[1]);
       }
     });
@@ -1761,8 +1761,8 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
               if (unit.spawn(thisTeam ? teamF : ctx.unit.team, ctx.unit.x, ctx.unit.y).isValid()) counter++;
             }
 
-            data.player.sendMessage("[green]You are spawning [accent]" + counter + " " + unit
-                + " []for [accent]" + teamF + " []team at [orange]" + ctx.unit.tileX() + "[white],[orange]" + ctx.unit.tileY());
+            data.player.sendMessage("[green]Spawneaste [accent]" + counter + " " + unit
+                + " []a [accent]" + teamF + " []team en [orange]" + ctx.unit.tileX() + "[white],[orange]" + ctx.unit.tileY());
             ALog.write("Spawn", "@ [@] spawn @ @ at @,@", data.stripedName, data.player.uuid(), counter, unit.name, ctx.unit.tileX(), ctx.unit.tileY());
           });
 
@@ -1772,8 +1772,8 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
             if (unit.spawn(team, x, y).isValid()) counter++;
           }
 
-          data.player.sendMessage("[green]You are spawning [accent]" + counter + " " + unit.name + " []for [accent]"
-              + team + " []team at [orange]" + x / 8 + "[white],[orange]" + y / 8);
+          data.player.sendMessage("[green]Spawneaste [accent]" + counter + " " + unit.name + " []a [accent]"
+              + team + " []team en [orange]" + x / 8 + "[white],[orange]" + y / 8);
           ALog.write("Spawn", "@ [@] spawn @ @ at @,@", data.stripedName, data.player.uuid(), counter, unit.name, x / 8, y / 8);
         }
       }
@@ -1794,8 +1794,8 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
               t.inGodmode = !t.inGodmode;
               ctx.unit.health = t.inGodmode ? Integer.MAX_VALUE : ctx.unit.maxHealth;
 
-              data.player.sendMessage("[gold]God mode is [green]" + (t.inGodmode ? "enabled" : "disabled") + "[] for [accent]" + ctx.data.realName);
-              ctx.player.sendMessage((t.inGodmode ? "[green]You've been put into god mode" : "[red]You have been removed from god mode")
+              data.player.sendMessage("[gold]God mode está [green]" + (t.inGodmode ? "habilitado" : "apagado") + "[] para [accent]" + ctx.data.realName);
+              ctx.player.sendMessage((t.inGodmode ? "[green]Te han dado el godmode" : "[red]y ahora te quitan el godmode")
                 + " by [accent]" + data.realName);
               ALog.write("Godmode", "@ [@] @ @ [@] in godmode", data.stripedName, data.player.uuid(),
                 ctx.data.inGodmode ? "put" : "remove", ctx.data.stripedName, ctx.player.uuid());
@@ -1826,9 +1826,9 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       target.inGodmode = !target.inGodmode;
       target.player.unit().health = target.inGodmode ? Integer.MAX_VALUE : target.player.unit().maxHealth;
 
-      data.player.sendMessage("[gold]God mode is [green]" + (target.inGodmode ? "enabled" : "disabled") + (arg.length == 0 ? "" : "[] for [accent]" + target.realName));
+      data.player.sendMessage("[gold]God mode está [green]" + (target.inGodmode ? "habilitado" : "apagado") + (arg.length == 0 ? "" : "[] para [accent]" + target.realName));
       if (arg.length == 1)
-        target.player.sendMessage((target.inGodmode ? "[green]You've been put into god mode" : "[red]You have been removed from god mode")
+        target.player.sendMessage((target.inGodmode ? "[green]Te han dado el godmode" : "[red]y ahora te quitan el godmode")
           + " by [accent]" + data.realName);
       ALog.write("Godmode", "@ [@] @ @ [@] in godmode", data.stripedName, data.player.uuid(), target.inGodmode ? "put" : "remove", target.stripedName, target.player.uuid());
     });
@@ -1866,7 +1866,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       } else data.player.sendMessage("El chat actualmente esta " + (PVars.chat ? "habilitado." : "bloqueado."));
     });
 
-    commands.add("reset", "<filter|username|ID...>", "Resetea los datos de los jugadores (rainbow, GodMode, muted, ...)", true, false, (arg, data) -> {
+    commands.add("reset", "<filter|username|ID...>", "Resetea los datos no importantes de los jugadores (rainbow, GodMode, muted, ...)", true, false, (arg, data) -> {
       FilterSearchReponse filter = ArgsFilter.hasFilter(data.player, arg);
 
       if (filter.reponse != Reponses.notFound && filter.sendIfError()) return;
@@ -1984,7 +1984,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       }
     });
 
-    commands.add("kick", "<filter|username|ID> [reason...]", "con esto le paeas el culo", true, false, (arg, data) -> {
+    commands.add("kick", "<filter|username|ID> [reason...]", "con esto le paeas el culo, utiliza el argumento reason para dale a conocer el Motivo", true, false, (arg, data) -> {
       FilterSearchReponse filter = ArgsFilter.hasFilter(data.player, arg);
       String reason;
 
@@ -2022,7 +2022,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       }
     });
 
-    commands.add("pardon", "<ID>", "Este comando eliminar el kick hecho por jugadores", true, false, (arg, data) -> {
+    commands.add("pardon", "<ID>", "Este comando elimina el kick hecho por jugadores, debes obtener su ID", true, false, (arg, data) -> {
       PlayerInfo info = netServer.admins.getInfoOptional(arg[0]);
 
       if (info != null) {
@@ -2033,7 +2033,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       } else Players.err(data.player, "No se ha encontrado a nadie.");
     });
 
-    commands.add("ban", "<filter|username|ID> [reason...]", "el rico ban ban", true, false, (arg, data) -> {
+    commands.add("ban", "<filter|username|ID> [reason...]", "No olvides especificar la razón del baneo", true, false, (arg, data) -> {
       FilterSearchReponse filter = ArgsFilter.hasFilter(data.player, arg);
       String reason;
 
@@ -2085,7 +2085,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       }
     });
 
-    commands.add("unban", "<ID>", "Le quitas el mazo del culo", true, false, (arg, data) -> {
+    commands.add("unban", "<ID>", "Le quitas el ban mediante la ID", true, false, (arg, data) -> {
       if (netServer.admins.unbanPlayerID(arg[0])) {
         PlayerInfo info = netServer.admins.getInfoOptional(arg[0]);
 
