@@ -26,7 +26,7 @@ public class PVars {
     }, vnwSession = new Task() {
     @Override
     public void run() {
-      Call.sendMessage("[scarlet]Vote for "+ (waveVoted == 1 ? "sending a new wave" : "skiping [scarlet]" + waveVoted + "[] waves")  + " failed! []Not enough votes.");
+      Call.sendMessage("[scarlet]Vata por "+ (waveVoted == 1 ? "saltar una oleada" : "saltando [scarlet]" + waveVoted + "[] oleadas")  + " failed! []No hay suficientes votos.");
       waveVoted = 0;
       cancel();
     }
