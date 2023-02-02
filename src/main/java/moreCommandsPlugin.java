@@ -736,36 +736,36 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
     commands.add("t", "<message...>", "Envía un mensaje solo a tus compañeros de equipo", false, false, (arg, data) -> {
       if (PVars.chat && data.isMuted) util.Players.err(data.player, "Estás silenciado/a, no puedes hablar.");
       else if (!PVars.chat && !data.player.admin) data.player.sendMessage("[scarlet]Chat desactivado, solo los moderadores pueden hablar!");
-      else Groups.player.each(p -> p.team() == data.player.team(), p -> p.sendMessage(Strings.format("[#@]<T> [coral][[@[coral]]:[white] @",
+      else Groups.player.each(p -> p.team() == data.player.team(), p -> p.sendMessage(Strings.format("[accent]<[#@]T[]> @ [accent]»[#@] @",
               data.player.team().color.toString(), data.nameColor + data.realName, arg[0]), data.player, arg[0]));
     });
 
     handler.removeCommand("a");
     commands.add("a", "<message...>", "Send a message only to admins", true, false, (arg, data) ->
-      Groups.player.each(p -> p.admin, p -> p.sendMessage(Strings.format("[scarlet]<A> [coral][[@[coral]]:[white] @",
+      Groups.player.each(p -> p.admin, p -> p.sendMessage(Strings.format("[accent]<[scarlet]A[]> @ [scarlet]»[accent] @",
         data.nameColor + data.realName, arg[0]), data.player, arg[0]))
     );
 
     handler.removeCommand("help");
-    commands.add("help", "[page|filter]", "Lists all commands", false, false, (arg, data) -> {
+    commands.add("help", "[page|filter]", "Lista de todos los comandos", false, false, (arg, data) -> {
       StringBuilder result = new StringBuilder();
       FilterSearchReponse filter = ArgsFilter.hasFilter(data.player, arg);
 
       if (arg.length == 1) {
         if (data.player.admin) {
           if (arg[0].equals("filter") || arg[0].equals("filters")) {
-            result.append("Help for all filters: ");
-            for (FilterType type : FilterType.values()) result.append("\n - [gold]" + type.getValue() + "[]: this filter targets [sky]" + type.desc + "[].");
+            result.append("Info de todos los filtros ");
+            for (FilterType type : FilterType.values()) result.append("\n - [gold]" + type.getValue() + "[]: Este filtro se dirige a [sky]" + type.desc + "[].");
             data.player.sendMessage(result.toString());
             return;
 
           } else if (filter.reponse == Reponses.found) {
-            data.player.sendMessage("Help for filter [gold]" + filter.type.getValue() + "[]: \nThe filter targets [sky]" + filter.type.desc + "[].");
+            data.player.sendMessage("Ayuda de filtro [gold]" + filter.type.getValue() + "[]: \nEl filtro se dirige a [sky]" + filter.type.desc + "[].");
             return;
 
           } else if (filter.reponse == Reponses.notFound) {
             if (!Strings.canParseInt(arg[0])) {
-              data.player.sendMessage("[scarlet]'page' must be a number.");
+              data.player.sendMessage("[scarlet]'page' debe ser un número.");
               return;
             }
 
@@ -775,7 +775,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
           }
 
         } else if (!Strings.canParseInt(arg[0])) {
-          data.player.sendMessage("[scarlet]'page' must be a number.");
+          data.player.sendMessage("[scarlet]'page' debe ser un número.");
           return;
         }
       }
@@ -786,11 +786,11 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       if (cList.size % lines != 0) pages++;
 
       if (page > pages || page < 1) {
-        data.player.sendMessage("[scarlet]'page' must be a number between[orange] 1[] and[orange] " + pages + "[].");
+        data.player.sendMessage("[scarlet]'page' debe ser un número entre[orange] 1[] a[orange] " + pages + "[].");
         return;
       }
 
-      result.append(Strings.format("[orange]-- Commands Page[lightgray] @[gray]/[lightgray]@[orange] --\n", page, pages));
+      result.append(Strings.format("[orange]-- Página de comandos[lightgray] @[gray]/[lightgray]@[orange] --\n", page, pages));
       for (int i=(page - 1) * lines; i < lines * page; i++) {
         try {
           c = cList.get(i);
@@ -801,7 +801,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       data.player.sendMessage(result.toString());
     });
 
-    commands.add("ut", "[filter|username...]", "The name of the unit", false, false, (arg, data) -> {
+    commands.add("ut", "[filter|username...]", "El nombre de la unidad actual", false, false, (arg, data) -> {
       TempData target = data;
 
       if (arg.length == 1) {
@@ -831,7 +831,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
           + (target.player.unit().type == null ? "[sky]invisible ..." : "a [sky]" + target.player.unit().type.name) + "[white].");
     });
 
-    commands.add("msg", "<username|ID> <message...>", "Send a private message to a player", false, false, (arg, data) -> {
+    commands.add("msg", "<username|ID> <message...>", "Creas un chat privado con un jugador, luego usa /r <message> para charlar", false, false, (arg, data) -> {
       Players result = Players.findByNameOrID(arg);
 
       if (result.found) {
@@ -839,28 +839,28 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
 
         if (!Strings.stripColors(message).isBlank()) {
           result.data.msgData.setTarget(data);
-          Call.sendMessage(data.player.con, message, "[sky]me [gold]--> " + result.data.nameColor + result.data.realName, data.player);
-          Call.sendMessage(result.player.con, message, result.data.nameColor + result.data.realName + " [gold]--> [sky]me", data.player);
+          Call.sendMessage(data.player.con, message, "[sky]Enviado [green] » " + result.data.nameColor + result.data.realName, data.player);
+          Call.sendMessage(result.player.con, message, result.data.nameColor + result.data.realName + " [scarlet]» [sky]Recibido", data.player);
 
-        } else Players.err(data.player, "Please don't send an empty message.");
+        } else Players.err(data.player, "No dejes el mensaje en blanco.");
       } else Players.errNotOnline(data.player);
     });
 
-    commands.add("r", "<message...>", "Reply to the last private message received", false, false, (arg, data) -> {
+    commands.add("r", "<message...>", "Responder al último mensaje privado recibido, solo si tienes un chat privado abierto.", false, false, (arg, data) -> {
       if (data.msgData.target != null) {
         if (data.msgData.targetOnline) {
           if (!Strings.stripColors(arg[0]).isBlank()) {
-            Call.sendMessage(data.player.con, arg[0], "[sky]me [gold]--> " + data.msgData.target.nameColor + data.msgData.target.realName, data.player);
-            Call.sendMessage(data.msgData.target.player.con, arg[0], data.nameColor + data.realName + " [gold]--> [sky]me", data.player);
+            Call.sendMessage(data.player.con, arg[0], "[sky]Enviado [green] » " + data.msgData.target.nameColor + data.msgData.target.realName, data.player);
+            Call.sendMessage(data.msgData.target.player.con, arg[0], data.nameColor + data.realName + " [scarlet]» [sky]Recibido", data.player);
 
-          } else Players.err(data.player, "Please don't send an empty message.");
-        } else Players.err(data.player, "This player is disconnected");
-      } else Players.err(data.player, "No one has sent you a private message");
+          } else Players.err(data.player, "No dejes el mensaje en blanco.");
+        } else Players.err(data.player, "El jugador se desconectó");
+      } else Players.err(data.player, "No hay chat privado iniciado.");
     });
 
-    commands.add("maps", "[page]", "List all maps on server", false, false, (arg, data) -> {
+    commands.add("maps", "[page]", "Lista de mapas", false, false, (arg, data) -> {
       if (arg.length == 1 && !Strings.canParseInt(arg[0])) {
-        data.player.sendMessage("[scarlet]'page' must be a number.");
+        data.player.sendMessage("[scarlet]'page' debe ser un número.");
         return;
       }
 
@@ -871,11 +871,11 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       if (list.size % lines != 0) pages++;
 
       if (page > pages || page < 1) {
-        data.player.sendMessage("[scarlet]'page' must be a number between[orange] 1[] and [orange]" + pages + "[].");
+        data.player.sendMessage("[scarlet]'page' el número debe ser entre[orange] 1[] y [orange]" + pages + "[].");
         return;
       }
 
-      builder.append("\n[lightgray]Actual map: " + state.map.name() + "[white]\n[orange]---- [gold]Maps list [lightgray]" + page + "[gray]/[lightgray]" + pages + "[orange] ----");
+      builder.append("\n[lightgray]Mapa actual: " + state.map.name() + "[white]\n[orange]---- [gold]Lista de mapas [lightgray]" + page + "[gray]/[lightgray]" + pages + "[orange] ----");
       for (int i=(page - 1) * lines; i < lines * page; i++) {
         try {
           map = list.get(i);
@@ -888,16 +888,16 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       data.player.sendMessage(builder.toString() + "\n[orange]-----------------------");
     });
 
-    commands.add("vnw", "[number]", "Vote for sending a New Wave", false, false, (arg, data) -> {
+    commands.add("vnw", "[number]", "Vota para saltar oleadas", false, false, (arg, data) -> {
       if (!PVars.canVote) return;
-      else if (Groups.player.size() < 3 && !data.player.admin) {
-        data.player.sendMessage("[scarlet]3 players are required or be an admin to start a vote.");
+      else if (Groups.player.size() < 1 && !data.player.admin) {
+        data.player.sendMessage("[scarlet]1 este mensaje no tiene por qué aparecer.");
         return;
       } else if (data.votedVNW) {
-        data.player.sendMessage("You have Voted already." + (PVars.waveVoted != 1 ? " [lightgray](" + PVars.waveVoted + " waves)" : ""));
+        data.player.sendMessage("Ya votaste." + (PVars.waveVoted != 1 ? " [lightgray](" + PVars.waveVoted + " oleadas)" : ""));
         return;
       } else if (!PVars.vnwCooldown.get()) {
-        data.player.sendMessage("[orange]Please wait some minutes before start a new vote to skip a wave.");
+        data.player.sendMessage("[orange]Espera unos segundos para volver utilizar");
         return;
       }
 
@@ -906,10 +906,10 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
           if (data.player.admin) {
             if (Strings.canParseInt(arg[0])) {
               PVars.waveVoted = (short) Strings.parseInt(arg[0]);
-              ALog.write("VNW", "@ [@] start a vote to skip @ waves", data.stripedName, data.player.uuid(), PVars.waveVoted);
+              ALog.write("VNW", "@ [@] inicia una votación para saltar @ oleada", data.stripedName, data.player.uuid(), PVars.waveVoted);
 
             } else {
-              Players.err(data.player, "Please type a number");
+              Players.err(data.player, "Por favor escriba un número");
               return;
             }
 
@@ -918,7 +918,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
             return;
           }
         } else {
-          Players.err(data.player, "A vote to skip wave is already in progress! " + (PVars.waveVoted != 1 ? "[lightgray](" + PVars.waveVoted + " waves)" : ""));
+          Players.err(data.player, "¡Ya hay una votación para saltarse la oleada! " + (PVars.waveVoted != 1 ? "[lightgray](" + PVars.waveVoted + " oleadas)" : ""));
           return;
         }
       } else if (!PVars.vnwSession.isScheduled())
@@ -926,8 +926,8 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
 
       data.votedVNW = true;
       int cur = TempData.count(p -> p.votedVNW), req = Mathf.ceil(0.6f * Groups.player.size());
-      Call.sendMessage(data.nameColor + data.realName + "[orange] has voted to "
-        + (PVars.waveVoted == 1 ? "send a new wave" : "skip [green]" + PVars.waveVoted + " waves") + ". [lightgray](" + (req - cur) + " votes missing)");
+      Call.sendMessage(data.nameColor + data.realName + "[orange] ha votado a favor "
+        + (PVars.waveVoted == 1 ? "para saltar la oleada" : "saltar [green]" + PVars.waveVoted + " oleadas") + ". [lightgray](" + (req - cur) + " faltan votos)");
 
       if (!PVars.vnwSession.isScheduled()) Timer.schedule(PVars.vnwSession, 30);
       if (cur < req) return;
@@ -949,16 +949,16 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       } else state.wave += PVars.waveVoted;
     });
 
-    commands.add("rtv", "[mapName...]", "Rock the vote to change map", false, false, (arg, data) -> {
+    commands.add("rtv", "[mapName...]", "Cambia de mapa, es aleatorio si no seleccionas un mapa", false, false, (arg, data) -> {
       if (!PVars.canVote) return;
       else if (Groups.player.size() < 1 && !data.player.admin) {
         data.player.sendMessage("[scarlet]2 players are required or be an admin to start a vote.");
         return;
       } else if (data.votedRTV) {
-        data.player.sendMessage("You have Voted already. [lightgray](selected map:[white] " + PVars.selectedMap.name() + "[lightgray])");
+        data.player.sendMessage("Ya Votaste. [lightgray](Mapa seleccionado:[white] " + PVars.selectedMap.name() + "[lightgray])");
         return;
       } else if (!PVars.rtvCooldown.get()) {
-        data.player.sendMessage("[orange]Please wait some minutes before start a new vote to skip current map.");
+        data.player.sendMessage("[orange]>:C");
         return;
       }
 
@@ -967,12 +967,12 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
           PVars.selectedMap = maps.all().find(map -> Strings.stripColors(map.name()).replace(' ', '_').equalsIgnoreCase(Strings.stripColors(arg[0]).replace(' ', '_')));
 
           if (PVars.selectedMap == null) {
-            Players.err(data.player, "No map with name '@' found.", arg[0]);
+            Players.err(data.player, "No hay un mapa con el nombre '@' ", arg[0]);
             return;
           } else maps.queueNewPreview(PVars.selectedMap);
 
         } else {
-          Players.err(data.player, "A vote to change the map is already in progress! [lightgray](selected map:[white] " + PVars.selectedMap.name() + "[lightgray])");
+          Players.err(data.player, "Ya hay una votación en marcha para cambiar de mapa! [lightgray](Mapa seleccionado:[white] " + PVars.selectedMap.name() + "[lightgray])");
           return;
         }
       } else if (!PVars.rtvSession.isScheduled()) PVars.selectedMap = maps.getNextMap(Gamemode.valueOf(Core.settings.getString("lastServerMode")), state.map);
@@ -980,14 +980,14 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       data.votedRTV = true;
       int RTVsize = TempData.count(p -> p.votedRTV), req = Mathf.ceil(0.6f * Groups.player.size());
       Call.sendMessage("[scarlet]RTV: [accent]" + data.nameColor + data.realName
-          + " [white]wants to change the map, [green]" + RTVsize + "[white]/[green]" + req
-          + " []votes. [lightgray](selected map: [white]" + PVars.selectedMap.name() + "[lightgray])");
+          + " [white]quiere cambiar el mapa, [green]" + RTVsize + "[white]/[green]" + req
+          + " []votes. [lightgray](Mapa seleccionado: [white]" + PVars.selectedMap.name() + "[lightgray])");
 
       if (!PVars.rtvSession.isScheduled()) Timer.schedule(PVars.rtvSession, 60);
       if (RTVsize < req) return;
 
       PVars.rtvSession.cancel();
-      Call.sendMessage("[scarlet]RTV: [green]Vote passed, map change to [white]" + PVars.selectedMap.name() + " [green]...");
+      Call.sendMessage("[scarlet]RTV: [green]Votación aprobada, se cambiará de mapa a [white]" + PVars.selectedMap.name() + " [green]...");
       new RTV(PVars.selectedMap, data.player.team());
     });
 
@@ -1025,7 +1025,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       }
     });
 
-    commands.add("info-all", "[ID|username...]", "Get all player informations", false, false, (arg, data) -> {
+    commands.add("info-all", "[ID|username...]", "Obtienes info de los jugadores", false, false, (arg, data) -> {
       StringBuilder builder = new StringBuilder();
       ObjectSet<PlayerInfo> infos = ObjectSet.with(data.player.getInfo());
       Players test;
@@ -1043,14 +1043,14 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
               infos = netServer.admins.searchNames(arg[0]);
               if (infos.size == 0) infos = ObjectSet.with(netServer.admins.getInfoOptional(arg[0]));
               if (infos.size == 0) {
-                Players.err(data.player, "No player nickname containing [orange]'@'[].", arg[0]);
+                Players.err(data.player, "Ningún nombre de jugador tiene [orange]'@'[].", arg[0]);
                 return;
               }
 
             } else infos = ObjectSet.with(test.player.getInfo());
 
           } else {
-            if (Players.findByID(arg).found) Players.err(data.player, "You don't have permission to search a player by their ID!");
+            if (Players.findByID(arg).found) Players.err(data.player, "Solo moderadores pueden buscar ID");
             else Players.errNotOnline(data.player);
             return;
           }
@@ -1059,7 +1059,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
         mode = false;
       }
 
-      if (data.player.admin && !mode) data.player.sendMessage("[gold]----------------------------------------\n[scarlet]-----" + "\n[white]Players found: [gold]" + infos.size + "\n[scarlet]-----");
+      if (data.player.admin && !mode) data.player.sendMessage("[gold]----------------------------------------\n[scarlet]-----" + "\n[white]Jugadores encontrados: [gold]" + infos.size + "\n[scarlet]-----");
       for (PlayerInfo pI : infos) {
         if (data.player.admin && !mode) data.player.sendMessage("[gold][" + i++ + "] [white]Trace info for player [accent]'" + pI.lastName.replaceAll("\\[", "[[")
           + "[accent]'[white] / ID [accent]'" + pI.id + "' ");
