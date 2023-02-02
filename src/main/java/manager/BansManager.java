@@ -76,8 +76,8 @@ public class BansManager {
           saveSettings();
           TempData.each(d -> {
             if (netServer.admins.isIDBanned(d.player.uuid())) {
-              Call.sendMessage("\n[gold]--------------------\n[scarlet]/[yellow]El jugador[]\\ " + d.nameColor + d.realName
-                  + "[scarlet] ha sido baneado del servidor.\nMotivo: [white]" + PVars.bansReason.get(arg[2])
+              Call.sendMessage("\n[gold]--------------------\n[yellow]/!\\ " + d.nameColor + d.realName
+                  + "[slate] ha sido [scarlet]baneado []del servidor.\nMotivo: [white]" + PVars.bansReason.get(arg[2])
                   + "\n[gold]--------------------\n");
               ALog.write("Ban", "[Server] Fue baneado @ [@] por el motivo de: @", d.stripedName, d.player.uuid(), PVars.bansReason.get(arg[2]));
               if (arg.length == 3 || arg[3].isBlank()) d.player.kick(KickReason.banned);
