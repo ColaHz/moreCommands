@@ -23,7 +23,7 @@ public class RTV {
         else Log.info("¡GG! Votaron para cambiar de mapa con @ jugadores en linea en el mapa @.", Groups.player.size(), Strings.capitalize(Strings.stripColors(state.map.name())));
 
         //set next map to be played
-        Call.infoMessage(Strings.format("@![]\n \nMapa siguiente:[accent] @ [white] by [accent]@ [white].\nEl nuevo juego comienza en 10 segundos.", 
+        Call.infoMessage(Strings.format("@![]\n \nMapa siguiente:[accent] @ [white] por [accent]@ [white].\nEl nuevo juego comienza en 10 segundos.", 
         	state.rules.pvp ? "[accent]Vote to change map" : "[scarlet]¡GG!", map.name(), map.author()));
 
         state.gameOver = true;
