@@ -271,7 +271,7 @@ public class BansManager {
     else if (bannedNames.contains(name) ||
         name.toLowerCase().equals("[server]") ||
         name.toLowerCase().equals("server"))
-      message = "[scarlet]Este Nombre fue baneado.";
+      message = "[orange]El nickname que usas actualmente está en la Blacklist, cambiate el nomre para entrar al servidor.";
     else if (!player.admin &&
         netServer.admins.getAdmins().contains(p -> {
           String adminName = Strings.stripGlyphs(Strings.stripColors(p.lastName)).strip().toLowerCase();
