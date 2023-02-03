@@ -2052,7 +2052,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
                 ctx.data.stripedName, ctx.player.uuid(), reason.isBlank() ? "<unknown>" : reason);
             if (reason.isBlank()) ctx.player.kick(KickReason.banned);
             else {
-              ctx.player.kick("Fuiste baneado del servidor!\n[scarlet]Motivo: []\n[slate]Si fue un ban injustificado ingresa a nuestro discord" + reason);
+              ctx.player.kick("[slate]Si fue injustificado ingresa a nuestro discord\nFuiste baneado del servidor!\n[scarlet]Motivo: []" + reason);
               PVars.bansReason.put(ctx.player.uuid(), reason);
             }
 
@@ -2075,7 +2075,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
                 result.data.stripedName, result.player.uuid(), reason.isBlank() ? "<unknown>" : reason);
             if (reason.isBlank()) result.player.kick(KickReason.banned);
             else {
-              result.player.kick("Fuiste baneado del servidor!\n[scarlet]Motivo: []\n[slate]Si fue un ban injustificado ingresa a nuestro discord" + reason);
+              result.player.kick("[slate]Si fue injustificado ingresa a nuestro discord\nFuiste baneado del servidor!\n[scarlet]Motivo: []" + reason);
               PVars.bansReason.put(result.player.uuid(), reason);
               saveSettings();
             }
