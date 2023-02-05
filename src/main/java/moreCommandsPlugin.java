@@ -40,7 +40,7 @@ import manager.*;
 public class moreCommandsPlugin extends mindustry.mod.Plugin {
   @SuppressWarnings("unchecked")
   public moreCommandsPlugin() {
-    Log.info("|-> MoreCommands, cargando....");
+    Log.info("|-> MoreCommands, cargando sin rtv....");
 
     // init other classes and load settings
     Effects.init();
@@ -949,7 +949,7 @@ public class moreCommandsPlugin extends mindustry.mod.Plugin {
       } else state.wave += PVars.waveVoted;
     });
 
-    commands.add("rtv", "[mapName...]", "Cambia de mapa, es aleatorio si no seleccionas un mapa", false, false, (arg, data) -> {
+    commands.add("rteve", "[mapName...]", "Cambia de mapa, es aleatorio si no seleccionas un mapa", false, false, (arg, data) -> {
       if (!PVars.canVote) return;
       else if (Groups.player.size() < 1 && !data.player.admin) {
         data.player.sendMessage("[scarlet]2 players are required or be an admin to start a vote.");
