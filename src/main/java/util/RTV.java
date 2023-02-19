@@ -35,7 +35,6 @@ public class RTV {
         		WorldReloader reloader = new WorldReloader();
                 reloader.begin();
 
-				mindustry.Vars.world.loadMap(map, map.applyRules(state.rules.mode()));
                 state.rules = state.map.applyRules(state.rules.mode());
                 mindustry.Vars.logic.play();
 
