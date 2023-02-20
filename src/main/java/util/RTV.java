@@ -35,10 +35,10 @@ public class RTV {
         		WorldReloader reloader = new WorldReloader();
                 reloader.begin();
 
-                state.rules = state.map.applyRules(state.rules.mode());
                 mindustry.Vars.logic.play();
-
                 reloader.end();
+
+                state.rules = state.map.applyRules(state.rules.mode());
         		
         	} catch (mindustry.maps.MapException e) {
         		Log.err(e.map.name() + ": " + e.getMessage());
