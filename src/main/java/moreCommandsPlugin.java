@@ -40,7 +40,7 @@ import manager.*;
 public class moreCommandsPlugin extends mindustry.mod.Plugin {
   @SuppressWarnings("unchecked")
   public moreCommandsPlugin() {
-    Log.info("|-> MoreCommands, cargando sin rtv....");
+    Log.info("|-> MoreCommands, rtv");
 
     // init other classes and load settings
     Effects.init();
