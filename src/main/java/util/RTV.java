@@ -28,20 +28,19 @@ public class RTV {
 
         state.gameOver = true;
         Call.updateGameOver(winner);
-        Log.info("El siguiente mapa es @.", Strings.stripColors(map.name()));
+        Log.info("Selected next map to be @.", Strings.stripColors(map.name()));
 
         arc.util.Timer.schedule(() -> {
         	try {
         		WorldReloader reloader = new WorldReloader();
                 reloader.begin();
 
-		mindustry.Vars.world.loadMap(map, map.applyRules(state.rules.mode()));
-			
-                mindustry.Vars.logic.play();
-			
-                reloader.end();
+				mindustry.Vars.world.loadMap(map, map.applyRules(state.rules.mode()));
                 state.rules = state.map.applyRules(state.rules.mode());
-                       		
+                mindustry.Vars.logic.play();
+
+                reloader.end();
+        		
         	} catch (mindustry.maps.MapException e) {
         		Log.err(e.map.name() + ": " + e.getMessage());
         		mindustry.Vars.net.closeServer();
